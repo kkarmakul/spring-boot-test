@@ -1,6 +1,4 @@
-.gradle
-/build/
-/gradle/wrapper/
+/target
 
 # Compiled class file
 *.class

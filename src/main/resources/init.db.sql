@@ -1,7 +1,8 @@
-CREATE ROLE site_msg_application WITH LOGIN PASSWORD 'site_msg_pwd';
-DROP DATABASE IF EXISTS site_messages;
-CREATE DATABASE site_messages;
-GRANT ALL PRIVILEGES ON DATABASE site_messages TO site_msg_application;
+CREATE ROLE client_test_application WITH LOGIN PASSWORD 'client_test_pwd';
+DROP DATABASE IF EXISTS client_test;
+CREATE DATABASE client_test;
+GRANT ALL PRIVILEGES ON DATABASE client_test TO client_test_application;
 
-\c site_messages;
+\c client_test;
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp" SCHEMA pg_catalog;
+CREATE EXTENSION IF NOT EXISTS "pgcrypto" SCHEMA pg_catalog;
