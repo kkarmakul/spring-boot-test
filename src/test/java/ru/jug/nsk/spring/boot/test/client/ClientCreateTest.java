@@ -35,6 +35,7 @@ public class ClientCreateTest {
     public void create() {
         CreateClientDto dto = new CreateClientDto();
         dto.setLogin("bsmith");
+        dto.setEmail("bsmith@mail.zz");
         dto.setFamilyName("Bob");
         dto.setFirstName("Smith"); // TODO load from resource
 
@@ -46,9 +47,11 @@ public class ClientCreateTest {
         assertThat(re.getBody()).isNotNull(); // TODO move to Utils
 
         ClientDto result = clientService.getOne(re.getBody(), converter::toDto); // TODO через GET-запрос
+        assertThat(result).isNotNull();
         assertThat(result.getFamilyName()).isEqualTo(dto.getFamilyName());
         assertThat(result.getFirstName()).isEqualTo(dto.getFirstName());
+        assertThat(result.getEmail()).isEqualTo(dto.getEmail());
         // TODO load expected from resource
-        // TODO compare with expected
+        // TODO compare with expected using reflection
     }
 }

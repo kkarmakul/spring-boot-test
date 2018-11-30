@@ -28,4 +28,6 @@ public interface ClientRepository extends
         bindings.bind(qClient.deleted).first(BooleanExpression::eq);
         bindings.excluding(qClient.passwordHash, qClient.uuid);
     }
+
+    Client findByLogin(String login);
 }

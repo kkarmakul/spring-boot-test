@@ -10,7 +10,6 @@ import org.hamcrest.Matcher;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
-import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import ru.jug.nsk.spring.boot.test.client.dto.ClientDto;
@@ -32,9 +31,12 @@ import static ru.jug.nsk.spring.boot.test.client.TestUtils.LIST_DTO_TYPE;
 public class ClientSearchTests extends AbstractParameterizedApplicationTest {
 
     public interface TestArguments extends Consumer<ClientDto> {
+
         long getExpectedCount();
+
         String getQuery();
     }
+
     @Parameterized.Parameter
     public TestArguments args;
 
@@ -74,8 +76,9 @@ public class ClientSearchTests extends AbstractParameterizedApplicationTest {
         List<ClientDto> actual = perform(null, HttpMethod.GET,
                 "clients/search?" + args.getQuery(), LIST_DTO_TYPE, HttpStatus.OK);
 
-        actual.forEach(args);
+        actual.forEach(args); // Проверяем, что запись удовлетворяет критерию поиска
 
+        // Проверяем, что записи, маркированные "forSearch" нашлись в нужном количестве
         assertThat(actual.stream()
                 .filter(c -> c.getFirstName().startsWith("forSearch"))
                 .count())
@@ -97,11 +100,13 @@ public class ClientSearchTests extends AbstractParameterizedApplicationTest {
     @Value
     @Builder
     private static class FieldTestArguments<T> implements TestArguments {
+
         private final long expectedCount;
         private final Function<ClientDto, T> getter;
         private final Condition<T> condition;
 
         private final String query;
+
         @Override
         public void accept(ClientDto clientDto) {
             assertThat(getter.apply(clientDto)).is(condition);
@@ -111,6 +116,7 @@ public class ClientSearchTests extends AbstractParameterizedApplicationTest {
     @Value
     @Builder
     private static class ComplexTestArguments implements TestArguments {
+
         private final Collection<TestArguments> collection;
         private final long expectedCount;
 

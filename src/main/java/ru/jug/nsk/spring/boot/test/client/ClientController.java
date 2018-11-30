@@ -19,6 +19,8 @@ import ru.jug.nsk.spring.boot.test.client.dto.CreateClientDto;
 import ru.jug.nsk.spring.boot.test.client.dto.ModifyClientDto;
 import ru.jug.nsk.spring.boot.test.client.entity.Client;
 
+import javax.validation.Valid;
+
 import java.util.UUID;
 
 @RestController
@@ -42,7 +44,7 @@ public class ClientController {
 
     @PostMapping("create")
     @ResponseStatus(HttpStatus.CREATED)
-    public UUID create(@RequestBody CreateClientDto dto) {
+    public UUID create(@RequestBody @Valid CreateClientDto dto) {
         log.debug("create: Client is being created: {}", dto);
         UUID uuid = clientService.create(converter.fromDto(dto));
         log.info("create: Client was saved under UUID: {}", uuid);

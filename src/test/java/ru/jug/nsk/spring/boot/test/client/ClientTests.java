@@ -1,6 +1,5 @@
 package ru.jug.nsk.spring.boot.test.client;
 
-import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.http.HttpMethod;
@@ -17,17 +16,7 @@ import static java.util.Collections.singletonList;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @RunWith(SpringRunner.class)
-@Slf4j
 public class ClientTests extends BaseApplicationTest {
-
-    @Test
-    public void get() {
-        ClientDto actual = perform(null, HttpMethod.GET,
-                "clients/36dc24c7-7cd1-4c73-b6cd-ab460b4c7636", ClientDto.class);
-
-        ClientDto expected = loadResource("client.get.json", ClientDto.class);
-        assertThat(actual).isEqualTo(expected);
-    }
 
     @Test
     public void create() {
@@ -39,6 +28,13 @@ public class ClientTests extends BaseApplicationTest {
         ClientDto expected = loadResource("client.created.json", ClientDto.class);
         assertThat(actual).isEqualToIgnoringGivenFields(expected, "uuid");
         assertThat(actual.getUuid()).isNotNull(); // TODO: sublists, dates, floats, etc.
+    }
+
+    @Test
+    public void get() {
+        ClientDto actual = getClient(UUID.fromString("36dc24c7-7cd1-4c73-b6cd-ab460b4c7636"));
+        ClientDto expected = loadResource("client.get.json", ClientDto.class);
+        assertThat(actual).isEqualTo(expected);
     }
 
     @Test
