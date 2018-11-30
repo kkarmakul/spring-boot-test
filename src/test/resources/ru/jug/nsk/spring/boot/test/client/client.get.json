@@ -1,0 +1,8 @@
+{
+  "uuid" : "36dc24c7-7cd1-4c73-b6cd-ab460b4c7636",
+  "login" : "login_get",
+  "email" : "mail-get@somehost.xz",
+  "familyName" : "Client",
+  "firstName" : "forGet",
+  "deleted": false
+}

@@ -1,0 +1,8 @@
+{
+  "uuid" : "8848c59b-a40d-49be-ae4a-01e9762f5dcf",
+  "email" : "mail-del@somehost.xz",
+  "familyName" : "Client",
+  "firstName" : "forDeletion",
+  "login": "login_del",
+  "deleted": true
+}
